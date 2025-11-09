@@ -1,28 +1,7 @@
-# Supercell Coding Test
-Hi! This is the base code structure for the Supercell coding test.
-The code is basic and plays poorly, so we need YOU to make it better.
-
-## Theme
-
-This year's theme is "Endless Runner". The starter code gives you a basic, generic infinite runner game.
-
-## Disclaimer - MANDATORY RULES
-
-We strongly recommend that you:
-- Read this README to the end.
-- Keep to the theme.
-- Place assets in the `/assets` folder and use the `ResourceManager` class to get file paths.
-    - Example usage: `ResourceManager::getOrLoadFont("Lavigne.ttf")`
-    - Look in `/src/gamestates/StateMenu.cpp` for examples of loading fonts and textures.
-- DO NOT MODIFY the ResourceManager. We might run your game on a different platform than what you developed on.
-- Avoid modifying the CMakeLists.txt file. We will use Cmake to build your project.
-- (optional) Test on different platforms if you can, to assure your submission builds and functions the same.
-
-We will build your project with the build steps outlined below. If your submission produces any build errors we will most likely end the evaluation there.
+# Cyber-Run
+An endless runner game in which you need to avoid or destroy the enemies
 
 ## Prerequisites
-
-NOTE: Hive computers (should) have these dependencies installed already.
 
 You must have [CMake](https://cmake.org/) version 3.22.1 or later installed to build this project.
 
@@ -45,7 +24,7 @@ sudo apt install \
 
 Simply run `cmake -B build` and `cmake --build build`. This builds the executable in `./build/bin/`.
 
-The exact location of the executable may differ depending on your system and compiler. Example locations are `./build/bin/shooter` and `./build/bin/Debug/shooter.exe`.
+The exact location of the executable may differ depending on your system and compiler. Example locations are `./build/bin/runner` and `./build/bin/Debug/runner.exe`.
 
 Alternatively, you can specify a generator suited for your toolchain.
 - `cmake -B build -G"Unix Makefiles"`
@@ -53,15 +32,6 @@ Alternatively, you can specify a generator suited for your toolchain.
 - `cmake -B build -GXcode`
 
 Run `cmake -G` to list all available generators.
-
-## Submission
-
-Upload your work to Google Drive, Dropbox (or some other service), and complete the provided form with:
-- A link to your submission (remember to check permissions)
-- Your full name
-- Your email address
-
-[**SUBMIT**](https://supr.cl/hive2026submit)
 
 ## Your Game's Instructions
 Goal:
