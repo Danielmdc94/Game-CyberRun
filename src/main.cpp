@@ -87,6 +87,15 @@ void HandleStateEvents(const sf::Event& event, IState* pState, StateStack& games
                 gameOverState->Continue();
         }
     }
+    StatePaused* pauseState = dynamic_cast<StatePaused*>(pState);
+    if (pauseState)
+    {
+        if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
+        {
+            if (keyPressed->code == sf::Keyboard::Key::Tab)
+                pauseState->Unpause();
+        }
+    }
 }
 
 int main(int argc, char* argv[])

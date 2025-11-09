@@ -43,8 +43,8 @@ bool StateMenu::init()
 	m_textTitle->setOutlineColor(sf::Color::Black);
 	m_textTitle->setOutlineThickness(4.f);
 	m_textTitle->setFillColor(sf::Color::Yellow);
-	sf::FloatRect textRect = m_textTitle->getLocalBounds();
-	m_textTitle->setOrigin({textRect.position.x + textRect.size.x / 2.f, textRect.position.y  + textRect.size.y / 2.f});
+	sf::FloatRect localBounds = m_textTitle->getLocalBounds();
+	m_textTitle->setOrigin({localBounds.size.x / 2.0f, localBounds.size.y / 2.0f});
 
 	m_textContinue = std::make_unique<sf::Text>(*pFont, "PRESS <SPACE> TO CONTINUE", 32u);
     if (!m_textContinue)
@@ -56,15 +56,13 @@ bool StateMenu::init()
 	m_textContinue->setOutlineColor(sf::Color::Black);
 	m_textContinue->setOutlineThickness(2.f);
 	m_textContinue->setFillColor(sf::Color::White);
-	textRect = m_textContinue->getLocalBounds();
-	m_textContinue->setOrigin({textRect.position.x + textRect.size.x / 2.f, textRect.position.y  + textRect.size.y / 2.f});
-
+	localBounds = m_textContinue->getLocalBounds();
+	m_textContinue->setOrigin({localBounds.size.x / 2.0f, localBounds.size.y / 2.0f});
     return true;
 }
 
 void StateMenu::update(float dt)
 {
-    m_timePassed += dt;
     m_timerTextContinue += dt;
 
     if (m_timerTextContinue >= 1.f)
