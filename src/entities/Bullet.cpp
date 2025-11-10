@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "World.h"
 #include "Enemy.h"
+#include "Boss.h"
 #include "Player.h"
 #include "../MathUtils.h"
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -54,12 +55,23 @@ void Bullet::update(float dt)
                     if (player)
                     {
                         player->EnemyKill();
+                        m_world->SetEnemyKillCounter(m_world->GetEnemyKillCounter() + 1);
                     }
                     
                     enemy->MarkForDeletion();
                     MarkForDeletion();
                     break;
                 }
+            }
+        }
+        
+        Boss* boss = m_world->GetBoss();
+        if (boss && !boss->IsMarkedForDeletion())
+        {
+            if (boss->CheckCollision(GetBounds()))
+            {
+                boss->TakeDamage(1);
+                MarkForDeletion();
             }
         }
     }

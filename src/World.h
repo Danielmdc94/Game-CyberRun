@@ -7,6 +7,7 @@
 #include "gamestates/IState.h"
 #include "entities/Player.h"
 #include "entities/Enemy.h"
+#include "entities/Boss.h"
 #include "entities/Bullet.h"
 #include "entities/EnemyBullet.h"
 #include "entities/PowerUp.h"
@@ -27,13 +28,11 @@ public:
 
 	IState* GetOwner() const { return m_owner; }
 	float GetWorldSpeed() const { return m_worldSpeed; }
-	
-	void SetWorldSpeed(float l_worldSpeed) { 
-		m_worldSpeed = l_worldSpeed; 
-		UpdateParallaxSpeeds(); 
-	}
+
+	void SetWorldSpeed(float l_worldSpeed) { m_worldSpeed = l_worldSpeed; UpdateParallaxSpeeds(); }
 
 	Player* GetPlayer() const { return m_player.get(); }
+	Boss* GetBoss() const { return m_boss.get(); }
 	const std::vector<sf::RectangleShape>& GetPlatforms() const { return m_platforms; }
 	const std::vector<sf::RectangleShape>& GetFloorSegments() const { return m_floorSegments; }
 	std::vector<std::unique_ptr<Enemy>>& GetEnemies() { return m_enemies; }
@@ -45,18 +44,24 @@ public:
 	void GeneratePlatforms();
 	void UpdatePlatforms(float l_deltaTime);
 	void SpawnEnemies(float l_deltaTime);
+	void SpawnBoss();
 	void UpdateParallaxSpeeds();
 	
 	void UpdateEnemies(float l_deltaTime);
+	void UpdateBoss(float l_deltaTime);
 	void UpdateBullets(float l_deltaTime);
 	void UpdateEnemyBullets(float l_deltaTime);
 	void DrawEnemies(sf::RenderTarget& l_target);
+	void DrawBoss(sf::RenderTarget& l_target);
 	void DrawBullets(sf::RenderTarget& l_target);
 	void DrawEnemyBullets(sf::RenderTarget& l_target);
 	
 	void SpawnPowerUps(float l_deltaTime);
 	void UpdatePowerUps(float l_deltaTime);
 	void DrawPowerUps(sf::RenderTarget& l_target);
+
+	void SetEnemyKillCounter(int l_count) { m_enemyKillCounter = l_count; }
+	int GetEnemyKillCounter() const { return m_enemyKillCounter; }
 
 
 protected:
@@ -79,11 +84,14 @@ private:
 	float m_enemyTimer = 0.f;
 	float m_enemySpawnRate = 4.0f;
 	int m_enemySpawnCounter = 0;
+	int m_enemyKillCounter = 0;
+	bool m_bossSpawned = false;
 
 	float m_powerUpTimer = 0.f;
 	float m_powerUpSpawnRate = 15.0f;
 
 	std::unique_ptr<Player> m_player;
+	std::unique_ptr<Boss> m_boss;
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<Bullet>> m_bullets;
 	std::vector<std::unique_ptr<EnemyBullet>> m_enemyBullets;

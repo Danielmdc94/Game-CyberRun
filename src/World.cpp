@@ -32,6 +32,7 @@ void World::OnDestroy()
 	m_buildingsLayer = nullptr;
 
 	m_player.reset();
+	m_boss.reset();
 	m_enemies.clear();
 	m_bullets.clear();
 	m_enemyBullets.clear();
@@ -57,6 +58,7 @@ void World::Draw(sf::RenderTarget* l_window)
 	}
 
 	DrawEnemies(*l_window);
+	DrawBoss(*l_window);
 	DrawBullets(*l_window);
 	DrawEnemyBullets(*l_window);
 	DrawPowerUps(*l_window);
@@ -106,6 +108,7 @@ void World::Update(sf::Time l_deltaTime)
 	SpawnPowerUps(l_deltaTime.asSeconds());
 
 	UpdateEnemies(l_deltaTime.asSeconds());
+	UpdateBoss(l_deltaTime.asSeconds());
 	UpdateBullets(l_deltaTime.asSeconds());
 	UpdateEnemyBullets(l_deltaTime.asSeconds());
 	UpdatePowerUps(l_deltaTime.asSeconds());
@@ -225,7 +228,17 @@ void World::SpawnEnemies(float l_deltaTime)
 		m_enemyTimer = 0.f;
 		m_enemySpawnCounter++;
 		
-		int enemiesToSpawn = (m_enemySpawnCounter % 10 == 0) ? 5 : 2;
+		int enemiesToSpawn = 0;
+		if (m_enemyKillCounter <= 2)
+		{
+			enemiesToSpawn = (m_enemySpawnCounter % 10 == 0) ? 5 : 2;
+		}
+		else
+		{
+			SpawnBoss();
+			return;
+		}
+			
 		
 		for (int i = 0; i < enemiesToSpawn; ++i)
 		{
@@ -249,6 +262,35 @@ void World::SpawnEnemies(float l_deltaTime)
 					m_enemies.push_back(std::move(enemy));
 				}
 			}
+		}
+	}
+}
+
+void World::SpawnBoss()
+{
+	if (m_bossSpawned || m_boss)
+	{
+		return;
+	}
+	
+	m_bossSpawned = true;
+	m_enemyKillCounter = 0;
+	
+	sf::Vector2u windowSize(1920, 1080);
+	
+	m_boss = std::make_unique<Boss>();
+	if (m_boss)
+	{
+		sf::Vector2f spawnPos;
+		spawnPos.x = static_cast<float>(windowSize.x) + 200.f;
+		spawnPos.y = 400.f;
+		
+		m_boss->SetWorld(this);
+		m_boss->SetPosition(spawnPos);
+		
+		if (!m_boss->init())
+		{
+			m_boss.reset();
 		}
 	}
 }
@@ -437,5 +479,26 @@ void World::DrawPowerUps(sf::RenderTarget& l_target)
 		{
 			powerUp->render(l_target);
 		}
+	}
+}
+
+void World::UpdateBoss(float l_deltaTime)
+{
+	if (m_boss)
+	{
+		m_boss->update(l_deltaTime);
+		
+		if (m_boss->IsMarkedForDeletion())
+		{
+			m_boss.reset();
+		}
+	}
+}
+
+void World::DrawBoss(sf::RenderTarget& l_target)
+{
+	if (m_boss)
+	{
+		m_boss->render(l_target);
 	}
 }
