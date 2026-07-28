@@ -1,6 +1,9 @@
 # Cyber-Run
 An endless runner game in which you need to avoid or destroy the enemies
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/840c8e30-d4a2-4497-b398-ad7a1c8ee48b" />
+
+
 ## Prerequisites
 
 You must have [CMake](https://cmake.org/) version 3.22.1 or later installed to build this project.
