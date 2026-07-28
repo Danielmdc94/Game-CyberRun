@@ -37,33 +37,35 @@ Alternatively, you can specify a generator suited for your toolchain.
 Run `cmake -G` to list all available generators.
 
 ## Instructions
+
 Goal:
+
 Simple, get the honor of holding the High Score!
 As time goes on, the speed of the game increases, enemies move and spawn faster, and the gaps between platforms and floors widen.
 You earn points by shooting at enemies, and the longer the game runs, the more points a kill gives.
 
 
 Global Keybindings:
-Esc - Quit the game
-F4 - Toggle ullscreen
+- Esc - Quit the game
+- F4 - Toggle Fullscreen
 
 Menu Keybindings:
-Space - Start Game
+- Space - Start Game
 
 Game Keybindings:
-Tab - Pause game
-A - Move left
-D - Move rigth
-Space - Jump / Double Jump
-LShift - Sprint
-E - Dash in movement direction
-LClick - Shoot towards mouse
+- Tab - Pause game
+- A - Move left
+- D - Move rigth
+- Space - Jump / Double Jump
+- LShift - Sprint
+- E - Dash in movement direction
+- LClick - Shoot towards mouse
 
 Pause Keybindings:
-Tab - Unpause game
+- Tab - Unpause game
 
 GameOver Keybindings:
-Space - Return to menu
+- Space - Return to menu
 
 ## Troubleshooting
 
