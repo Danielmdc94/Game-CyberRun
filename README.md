@@ -33,7 +33,7 @@ Alternatively, you can specify a generator suited for your toolchain.
 
 Run `cmake -G` to list all available generators.
 
-## Your Game's Instructions
+## Instructions
 Goal:
 Simple, get the honor of holding the High Score!
 As time goes on, the speed of the game increases, enemies move and spawn faster, and the gaps between platforms and floors widen.
